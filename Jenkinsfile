@@ -2,6 +2,7 @@ properties([pipelineTriggers([githubPush()])])
 
 pipeline {
     agent any
+	dockerfile true
         environment {
 	    AWS_ACCESS_KEY_ID	  = credentials('AKIAXEQG34BCPF7SIBUC')
 	    AWS_SECRET_ACCESS_KEY = credentials('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')
