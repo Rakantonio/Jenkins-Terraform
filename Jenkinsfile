@@ -1,7 +1,7 @@
 properties([pipelineTriggers([githubPush()])])
 
 pipeline {
-    agent {
+    agent any
         environment {
 	    AWS_ACCESS_KEY_ID	  = credentials('AKIAXEQG34BCPF7SIBUC')
 	    AWS_SECRET_ACCESS_KEY = credentials('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')
@@ -11,7 +11,7 @@ pipeline {
 	    image 'hashicorp/terraform'
 	    args '--entrypoint='	
 	}
-    }
+    
     stages {
 	stage('Init Terraform directory') {
 	    steps {
