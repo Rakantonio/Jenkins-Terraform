@@ -1,20 +1,21 @@
 properties([pipelineTriggers([githubPush()])])
 
 pipeline {
-environment {
-               AWS_ACCESS_KEY_ID     = credentials('AKIAXEQG34BCPF7SIBUC')
-               AWS_SECRET_ACCESS_KEY = credentials('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')
-               AWS_REGION            = 'eu-west-3'
-          }
 
     agent {
-	dockerfile true
 	docker {
 	    image 'hashicorp/terraform'
 	    args '--entrypoint='	
 	}
     }
+    options {
+	withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-key', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']])
     
+    }
+    
+    environment {
+	AWS_REGION = "eu-west-3"
+    }
     stages {
 	stage('Init Terraform directory') {
 	    steps {
